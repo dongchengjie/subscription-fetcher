@@ -1,0 +1,30 @@
+name: dev
+
+on:
+  workflow_dispatch:
+
+permissions: write-all
+
+concurrency:
+  group: "${{ github.workflow }} - ${{ github.head_ref || github.ref }}"
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  dev-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch subscription files
+        uses: dongchengjie/subscription-fetcher@main
+        with:
+          config: .dev/config.yaml
+
+      - name: Update subscription files
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: subscriptions
+          author_name: subscription-fetcher
+          author_email: subscription-fetcher@users.noreply.github.com
+          message: Committed by subscription-fetcher

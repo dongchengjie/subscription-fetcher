@@ -1,0 +1,18 @@
+name: subscription-fetcher
+description: Fetch subscription from remote
+author: dongchengjie
+
+inputs:
+  config:
+    description: Configuration file(file in repository or remote url)
+    required: true
+  whitelist:
+    description: Whitelist fetcher names(separated by comma)
+    required: false
+  blacklist:
+    description: Blacklist fetcher names(separated by comma)
+    required: false
+
+runs:
+  using: docker
+  image: Dockerfile

@@ -1,0 +1,25 @@
+{
+  "name": "subscription-fetcher",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --env-file=.dev/.env index.ts"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "ajv": "^8.17.1",
+    "ajv-errors": "^3.0.0",
+    "ajv-formats": "^3.0.1",
+    "fs-extra": "^11.2.0",
+    "js-yaml": "^4.1.0",
+    "nanoid": "^5.0.9"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.16",
+    "@types/fs-extra": "^11.0.4",
+    "@types/js-yaml": "^4.0.9"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

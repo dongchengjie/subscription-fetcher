@@ -1,0 +1,154 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://github.com/dongchengjie/subscription-fetcher/schemas/subscription-fetcher.json",
+  "title": "subscription-fetcher",
+  "description": "subscription-fetcher configuration",
+  "type": "object",
+  "required": ["sources"],
+  "properties": {
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "fetcher"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Source name",
+            "minLength": 1
+          },
+          "fetcher": {
+            "enum": ["url", "post-url"],
+            "description": "Fetcher type"
+          },
+          "target": {
+            "description": "Type of target file",
+            "enum": [
+              "qx",
+              "QX",
+              "QuantumultX",
+              "surge",
+              "Surge",
+              "SurgeMac",
+              "Loon",
+              "Clash",
+              "meta",
+              "clashmeta",
+              "clash.meta",
+              "Clash.Meta",
+              "ClashMeta",
+              "mihomo",
+              "Mihomo",
+              "uri",
+              "URI",
+              "v2",
+              "v2ray",
+              "V2Ray",
+              "json",
+              "JSON",
+              "stash",
+              "Stash",
+              "shadowrocket",
+              "Shadowrocket",
+              "ShadowRocket",
+              "surfboard",
+              "Surfboard",
+              "singbox",
+              "sing-box",
+              "egern",
+              "Egern"
+            ],
+            "default": "ClashMeta"
+          },
+          "output": {
+            "description": "Relative path from the repository root to save the output file",
+            "type": "string",
+            "minLength": 1
+          },
+          "options": {
+            "type": "object",
+            "description": "Fetcher-specific options"
+          },
+          "ua": {
+            "type": "string",
+            "description": "User-Agent",
+            "minLength": 1
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "fetcher": {
+                  "const": "url"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "options": {
+                  "required": ["urls"],
+                  "type": "object",
+                  "properties": {
+                    "urls": {
+                      "type": "array",
+                      "description": "Subscription URLs",
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "^http[s]?://.*$"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "fetcher": {
+                  "const": "post-url"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "options": {
+                  "required": ["urls", "function"],
+                  "type": "object",
+                  "properties": {
+                    "urls": {
+                      "type": "array",
+                      "description": "Subscription URLs",
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "^http[s]?://.*$"
+                      }
+                    },
+                    "function": {
+                      "type": "string",
+                      "description": "Function to extract subscription URLs",
+                      "minLength": 1,
+                      "default": "(str) => [str]"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "ua": {
+      "type": "string",
+      "description": "Global User-Agent",
+      "minLength": 1,
+      "default": "clash.meta"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    ".gitignore": ".git*,lefthook.*,prettier.config.*,.prettierignore",
+    "README.md": "README.*.md,LICENSE",
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": "bun.lockb,tsconfig.json",
+    "action.yml": "Dockerfile,Dockerfile,.dockerignore,docker-entrypoint.sh"
+  }
+}
