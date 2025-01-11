@@ -1,15 +1,17 @@
 # subscription-fetcher
 
-To install dependencies:
+```yml
+jobs:
+  dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-```bash
-bun install
+      - name: Fetch subscription files
+        uses: dongchengjie/subscription-fetcher@main
+        with:
+          config: https://example.com/config.json # or yaml
+        #   whitelist: foo,bar
+        #   blacklist: foo,bar
 ```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.43. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.

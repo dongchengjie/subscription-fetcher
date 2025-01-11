@@ -3,7 +3,7 @@ description: Fetch subscription files from remote
 
 inputs:
   config:
-    description: Configuration file(file in repository or remote url)
+    description: Configuration file url
     required: true
   whitelist:
     description: Whitelist fetcher names(separated by comma)
