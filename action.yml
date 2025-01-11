@@ -1,6 +1,5 @@
 name: subscription-fetcher
-description: Fetch subscription from remote
-author: dongchengjie
+description: Fetch subscription files from remote
 
 inputs:
   config:

@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
-  dev-test:
+  dev:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
