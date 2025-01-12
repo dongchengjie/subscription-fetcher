@@ -20,6 +20,7 @@ jobs:
         uses: dongchengjie/subscription-fetcher@main
         with:
           config: .dev/config.yaml
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update subscription files
         uses: EndBug/add-and-commit@v9
