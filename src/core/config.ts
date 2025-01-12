@@ -6,7 +6,7 @@ import AjvErrors from "ajv-errors";
 import AjvFormats from "ajv-formats";
 import schema from "schemas/subscription-fetcher.json";
 
-export type Type = "url" | "post-url";
+export type Type = "url" | "post-url" | "github";
 
 export type Target =
   | "qx"
@@ -76,5 +76,8 @@ export const getConfig = async (config: string): Promise<Config> => {
   const validate = ajv.compile(schema);
   if (validate(obj)) return obj as Config;
 
-  throw new Error(`Invalid config file: ${validate.errors}`);
+  const message = validate.errors
+    ?.map((error) => JSON.stringify(error))
+    .join("\n");
+  throw new Error(`Invalid config file: ${message}`);
 };

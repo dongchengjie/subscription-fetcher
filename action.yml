@@ -11,6 +11,9 @@ inputs:
   blacklist:
     description: Blacklist fetcher names(separated by comma)
     required: false
+  token:
+    description: GitHub API token(default to GITHUB_TOKEN)
+    required: false
 
 runs:
   using: docker

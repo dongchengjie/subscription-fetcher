@@ -19,7 +19,7 @@
             "minLength": 1
           },
           "fetcher": {
-            "enum": ["url", "post-url"],
+            "enum": ["url", "post-url", "github"],
             "description": "Fetcher type"
           },
           "target": {
@@ -135,6 +135,51 @@
                       "description": "Function to extract subscription URLs",
                       "minLength": 1,
                       "default": "(str) => [str]"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "fetcher": {
+                  "const": "github"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "options": {
+                  "required": ["repository"],
+                  "type": "object",
+                  "properties": {
+                    "repository": {
+                      "type": "string",
+                      "description": "Repository URL",
+                      "minLength": 1
+                    },
+                    "span": {
+                      "type": "string",
+                      "description": "Commit history span",
+                      "minLength": 1,
+                      "default": "7d"
+                    },
+                    "extensions": {
+                      "type": "array",
+                      "description": "File extensions filter",
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "default": []
+                    },
+                    "latest": {
+                      "type": "boolean",
+                      "description": "Fetch the latest version of the files",
+                      "default": true
                     }
                   }
                 }

@@ -4,6 +4,7 @@ export type Inputs = {
   config: string;
   whitelist?: string[];
   blacklist?: string[];
+  token?: string;
 };
 
 const getInput = (name: string, required: boolean = false) => {
@@ -24,5 +25,6 @@ export const getInputs = (): Inputs => {
     blacklist: getInput("blacklist")
       ? getInput("blacklist").split(",").filter(Boolean)
       : [],
+    token: getInput("token") || process.env.GITHUB_TOKEN,
   };
 };

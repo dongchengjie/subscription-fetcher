@@ -26,14 +26,14 @@ export const fetchPostURL = async (source: Source, config: Config) => {
     }
   };
 
-  const finalUrl = results
+  const finalUrls = results
     .filter((content) => content !== undefined)
     .map(parser)
     .reduce((acc, curr) => acc.concat(curr), [])
     .filter((url) => url !== undefined);
 
   // @ts-ignore Replace the URLs with the extracted URLs
-  source.options.urls = [...new Set(finalUrl)];
+  source.options.urls = [...new Set(finalUrls)];
 
   return fetchURL(source, config);
 };

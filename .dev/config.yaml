@@ -18,3 +18,10 @@ sources:
         - https://raw.githubusercontent.com/mkshare3/mkshare3.github.io/refs/heads/main/README.md
         - https://raw.githubusercontent.com/mksshare/mksshare.github.io/refs/heads/main/README.md
       function: (str)=>[str.replaceAll("\n","").replaceAll("\r","").split("Clash订阅链接")[1].split("```").filter(Boolean)[0].concat("?flag=clash")]
+  - name: clashfree
+    fetcher: github
+    output: subscriptions/clashfree.yaml
+    options:
+      repository: https://github.com/clashfree/clashfree.github.io
+      span: 7d
+      extensions: [.yaml, .yml]
