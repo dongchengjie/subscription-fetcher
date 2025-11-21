@@ -18,7 +18,7 @@ export const fetchGithub = async (source: Source, config: Config) => {
   const octokit = getOctokit(token);
 
   // Get the commits
-  const span = source.options?.span as string;
+  const span = source.options?.span as ms.StringValue;
   const duration = ms(span);
   const commits = await listCommits(
     octokit,

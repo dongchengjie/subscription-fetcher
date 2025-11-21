@@ -12,12 +12,13 @@ ADD https://github.com/sub-store-org/Sub-Store/releases/latest/download/sub-stor
 
 FROM base AS action
 COPY --from=install /temp/bun/node_modules node_modules
-COPY --from=install /usr/src/app/sub-store.js .
+COPY --from=install /usr/src/app/sub-store.js services/sub-store.js
 COPY . .
 
 # Set environment variables
 ENV NODE_TLS_REJECT_UNAUTHORIZED=0
 ENV SUB_STORE_BACKEND_API_PORT=3000
+ENV SUB_STORE_BODY_JSON_LIMIT=20mb
 
 # Run the app
 RUN chmod +x docker-entrypoint.sh

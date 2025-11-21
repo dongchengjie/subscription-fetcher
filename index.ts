@@ -1,16 +1,16 @@
 import { getInputs } from "@/util/actions";
-import { getConfig, type Source } from "@/core/config";
+import { getConfig } from "@/core/config";
 import fetchers from "@/core/fetchers";
 import { resolve } from "path";
 import { outputFile } from "fs-extra";
-
-type Task = Promise<{ source: Source; content: string }>;
 
 if (import.meta.main) {
   const { config, whitelist, blacklist } = getInputs();
 
   // Get configuration from file or URL
   const cfg = await getConfig(config);
+
+  console.log(JSON.stringify(cfg, null, 2));
 
   // Generate fetch tasks
   const tasks = cfg.sources.map(async (source) => {
