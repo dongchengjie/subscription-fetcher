@@ -1,5 +1,6 @@
 import { type Config, type Source } from "@/core/config";
 import { fetchURL } from "@/core/fetchers/url";
+import axios from "axios";
 
 export const fetchPostURL = async (source: Source, config: Config) => {
   const urls = (source.options?.urls ?? []) as string[];
@@ -8,9 +9,14 @@ export const fetchPostURL = async (source: Source, config: Config) => {
   // Fetch the contents of the URLs
   const fetches = urls.map(async (url) => {
     try {
-      const res = await fetch(url);
-      return res.ok ? await res.text() : undefined;
-    } catch {
+      const res = await axios.request({
+        url,
+        method: "GET",
+        timeout: 30 * 1000,
+      });
+      return res.status === 200 ? res.data : undefined;
+    } catch (err) {
+      console.error(`[fetchPostURL]: Error fetching ${url}: ${err}`);
       return undefined;
     }
   });
@@ -26,14 +32,16 @@ export const fetchPostURL = async (source: Source, config: Config) => {
     }
   };
 
-  const finalUrls = results
+  let finalUrls = results
     .filter((content) => content !== undefined)
     .map(parser)
     .reduce((acc, curr) => acc.concat(curr), [])
     .filter((url) => url !== undefined);
+  finalUrls = [...new Set(finalUrls)].sort();
+  console.log(`post-urls: ${JSON.stringify(finalUrls, null, 2)}`);
 
   // @ts-ignore Replace the URLs with the extracted URLs
-  source.options.urls = [...new Set(finalUrls)];
+  source.options.urls = finalUrls;
 
   return fetchURL(source, config);
 };
