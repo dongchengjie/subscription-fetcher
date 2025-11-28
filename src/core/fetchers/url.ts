@@ -1,9 +1,12 @@
 import { type Config, type Source } from "@/core/config";
 import { nanoid } from "nanoid";
 import { addSub, addCollection, downloadCollection } from "@/apis/sub-store";
+import { replaceDateMacros } from "@/util/macros";
 
 export const fetchURL = async (source: Source, config: Config) => {
-  const urls = (source.options?.urls ?? []) as string[];
+  const urls = ((source.options?.urls ?? []) as string[]).map(
+    replaceDateMacros
+  );
 
   // Add subscriptions
   let names = await Promise.all(

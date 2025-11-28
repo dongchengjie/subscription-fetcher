@@ -1,9 +1,12 @@
 import { type Config, type Source } from "@/core/config";
 import { fetchURL } from "@/core/fetchers/url";
 import axios from "axios";
+import { replaceDateMacros } from "@/util/macros";
 
 export const fetchPostURL = async (source: Source, config: Config) => {
-  const urls = (source.options?.urls ?? []) as string[];
+  const urls = ((source.options?.urls ?? []) as string[]).map(
+    replaceDateMacros
+  );
   const func = (source.options?.function ?? "(str) => [str]") as string;
 
   // Fetch the contents of the URLs
