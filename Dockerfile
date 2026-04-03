@@ -18,7 +18,7 @@ COPY . .
 # Set environment variables
 ENV NODE_TLS_REJECT_UNAUTHORIZED=0
 ENV SUB_STORE_BACKEND_API_PORT=3000
-ENV SUB_STORE_BODY_JSON_LIMIT=20mb
+ENV SUB_STORE_BODY_JSON_LIMIT=50mb
 
 # Run the app
 RUN chmod +x docker-entrypoint.sh

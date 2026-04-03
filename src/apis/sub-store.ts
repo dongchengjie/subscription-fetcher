@@ -123,6 +123,7 @@ export const addCollection = (collection: string, subscriptions: string[]) => {
             position: "back",
             template: "0 1 2 3 4 5 6 7 8 9",
             link: "-",
+            field: ["name"],
           },
           customName: "节点后缀",
           id: "3333333.333333333",
