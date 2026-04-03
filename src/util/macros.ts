@@ -1,7 +1,9 @@
 export const replaceDateMacros = (input: string): string => {
   const date = new Date();
   // {d} day of the month, 2 digits with leading zeros
+  // {ld} day of the month, 2 digits with leading zeros for the previous day
   // {j} day of the month without leading zeros
+  // {lj} day of the month without leading zeros for the previous day
   // {m} numeric representation of a month, with leading zeros
   // {n} numeric representation of a month, without leading zeros
   // {Y} a full numeric representation of a year, 4 digits
@@ -15,7 +17,9 @@ export const replaceDateMacros = (input: string): string => {
   // {U} seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)
   const replacements: { [key: string]: string } = {
     "{d}": String(date.getDate()).padStart(2, "0"),
+    "{ld}": String(date.getDate() - 1).padStart(2, "0"),
     "{j}": String(date.getDate()),
+    "{lj}": String(date.getDate() - 1),
     "{m}": String(date.getMonth() + 1).padStart(2, "0"),
     "{n}": String(date.getMonth() + 1),
     "{Y}": String(date.getFullYear()),
