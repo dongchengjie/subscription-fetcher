@@ -1,5 +1,5 @@
 # Use the official Bun image
-FROM oven/bun:latest AS base
+FROM oven/bun:1.3 AS base
 WORKDIR /usr/src/app
 
 FROM base AS install

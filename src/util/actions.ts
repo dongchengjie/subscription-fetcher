@@ -1,4 +1,4 @@
-import actions from "@actions/core";
+import { getInput } from "@actions/core";
 
 export type Inputs = {
   config: string;
@@ -7,24 +7,24 @@ export type Inputs = {
   token?: string;
 };
 
-const getInput = (name: string, required: boolean = false) => {
+const getInputVal = (name: string, required: boolean = false) => {
   return (
     process.env[name] ??
     process.env[name.toUpperCase()] ??
     process.env[name.toLocaleLowerCase()] ??
-    actions.getInput(name, { required })
+    getInput(name, { required })
   );
 };
 
 export const getInputs = (): Inputs => {
   return {
-    config: getInput("config", true),
-    whitelist: getInput("whitelist")
-      ? getInput("whitelist").split(",").filter(Boolean)
+    config: getInputVal("config", true),
+    whitelist: getInputVal("whitelist")
+      ? getInputVal("whitelist").split(",").filter(Boolean)
       : [],
-    blacklist: getInput("blacklist")
-      ? getInput("blacklist").split(",").filter(Boolean)
+    blacklist: getInputVal("blacklist")
+      ? getInputVal("blacklist").split(",").filter(Boolean)
       : [],
-    token: getInput("token") || process.env.GITHUB_TOKEN,
+    token: getInputVal("token") || process.env.GITHUB_TOKEN,
   };
 };
