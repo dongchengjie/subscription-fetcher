@@ -1,6 +1,7 @@
 import { getInputs } from "@/util/actions";
 import { getConfig } from "@/core/config";
 import fetchers from "@/core/fetchers";
+import pLimit from "p-limit";
 import { resolve } from "path";
 import { outputFile } from "fs-extra";
 
@@ -13,17 +14,20 @@ if (import.meta.main) {
   console.log(JSON.stringify(cfg, null, 2));
 
   // Generate fetch tasks
+  const limit = pLimit(2);
   const tasks = cfg.sources.map(async (source) => {
-    if (whitelist && whitelist.length > 0 && !whitelist.includes(source.name))
-      return;
-    if (blacklist && blacklist.length > 0 && blacklist.includes(source.name))
-      return;
+    return limit(async () => {
+      if (whitelist && whitelist.length > 0 && !whitelist.includes(source.name))
+        return;
+      if (blacklist && blacklist.length > 0 && blacklist.includes(source.name))
+        return;
 
-    const fetcher = fetchers[source.fetcher];
-    if (fetcher) {
-      const content = await fetcher(source, cfg).catch(() => undefined);
-      return content ? { source, content } : undefined;
-    }
+      const fetcher = fetchers[source.fetcher];
+      if (fetcher) {
+        const content = await fetcher(source, cfg).catch(() => undefined);
+        return content ? { source, content } : undefined;
+      }
+    });
   });
 
   // Wait for all tasks to complete
