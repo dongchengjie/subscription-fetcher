@@ -1,6 +1,7 @@
 import { getInputs } from "@/util/actions";
 import { getConfig } from "@/core/config";
 import fetchers from "@/core/fetchers";
+import os from "os";
 import pLimit from "p-limit";
 import { resolve } from "path";
 import { outputFile } from "fs-extra";
@@ -14,7 +15,7 @@ if (import.meta.main) {
   console.log(JSON.stringify(cfg, null, 2));
 
   // Generate fetch tasks
-  const limit = pLimit(2);
+  const limit = pLimit(os.availableParallelism());
   const tasks = cfg.sources.map(async (source) => {
     return limit(async () => {
       if (whitelist && whitelist.length > 0 && !whitelist.includes(source.name))
