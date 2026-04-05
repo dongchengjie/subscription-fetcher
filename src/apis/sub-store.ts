@@ -129,6 +129,13 @@ export const addCollection = (collection: string, subscriptions: string[]) => {
           id: "3333333.333333333",
           disabled: false,
         },
+        {
+          type: "Sort Operator",
+          args: "asc",
+          customName: "",
+          id: "4444444.444444444",
+          disabled: false,
+        },
       ],
       subscriptions,
       tag: [],
