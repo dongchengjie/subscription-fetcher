@@ -103,7 +103,7 @@ const main = async () => {
     console.log(`✅ Sub-Store backend is ready at ${HEALTH_CHECK_URL}`);
 
     // Configure Sub-Store settings
-    await setSettings({ cacheThreshold: "20480", defaultTimeout: "300000" });
+    await setSettings({ cacheThreshold: "51200", defaultTimeout: "3600000" });
 
     process.exit(0);
   } catch (error: any) {
