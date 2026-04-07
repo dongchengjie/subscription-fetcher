@@ -153,7 +153,7 @@ export const downloadCollection = async (
   const response = await axios.request({
     url: `http://127.0.0.1:${SUB_STORE_PORT}/download/collection/${collection}?target=${target}`,
     method: "get",
-    timeout: 30 * 60 * 1000,
+    timeout: 20 * 60 * 1000,
   });
   return response.data;
 };
